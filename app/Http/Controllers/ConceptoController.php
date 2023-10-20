@@ -15,11 +15,7 @@ class ConceptoController extends Controller
         if($concepto){
             $conceptos = new ConceptoCollection(Concepto::with('unidad')->where('id_concepto', $concepto)->get());
 
-            // var_dump($conceptos);
-
             [$conceptos] = $conceptos->toArray($request);
-
-            // return response()->json($concepto);
 
         } else {
             $conceptos = new ConceptoCollection(Concepto::all());
@@ -59,17 +55,6 @@ class ConceptoController extends Controller
 
         $concepto = Concepto::all()->where('id_concepto', $id_concepto)->first();
 
-        // $validateData = $request->validate([
-        //     'codigo_concepto' => 'required|unique:sm_conceptos|min:10|max:10|string',
-        //     'descripcion_concepto' => 'required|string',
-        //     'estado_concepto' => 'required|string|min:1|max:1',
-        //     'unidad' => 'required|array',
-        //     'unidad.id_unidad' => 'required|integer',
-        //     'stock_minimo' => 'required|min:1|integer'
-        // ]);
-
-        // $id_unidad = $validateData['unidad']['id_unidad'];
-
         $concepto['codigo_concepto'] = $request->input('codigo_concepto');
         $concepto['descripcion_concepto'] = $request->input('descripcion_concepto');
         $concepto['estado_concepto'] = $request->input('estado_concepto');
@@ -77,10 +62,6 @@ class ConceptoController extends Controller
         $concepto['stock_minimo'] = $request->input('stock_minimo');
 
         $concepto->save();
-
-        // [$concepto] = $concepto->toArray($request);
-
-        // [$concepto] = $concepto[array_keys($concepto)[0]];
 
         return response()->json($concepto, 200);
     }

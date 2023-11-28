@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\UnidadResource;
 use App\Models\Unidad;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,9 +17,7 @@ class ConceptoResource extends JsonResource
     public function toArray(Request $request): array
     {
 
-        $unidad = new UnidadCollection(Unidad::with('concepto')->where('id_unidad', $this->id_unidad)->get());
-
-        [$unidad] = $unidad->toArray($request);
+        $unidad = new UnidadResource(Unidad::find($this->id_unidad));
 
         return [
             'id_concepto' => $this->id_concepto,

@@ -14,11 +14,17 @@ class PersonaResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'id_persona' => $this->id_persona,
-            'identificacion' => $this->identificacion,
-            'nombre_completo' => $this->nombre_completo,
-            'tipo_persona' => $this->tipo_persona,
-        ];
+
+        if($this->resource !== null) {
+            return [
+                'id_persona' => $this->id_persona,
+                'identificacion' => $this->identificacion,
+                'nombre_completo' => $this->nombre_completo,
+                'tipo_persona' => $this->tipo_persona,
+            ];
+        } else {
+            return [];
+        }
+
     }
 }

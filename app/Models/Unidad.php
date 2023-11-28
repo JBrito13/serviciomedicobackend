@@ -9,6 +9,8 @@ class Unidad extends Model
 {
     protected $table = 'sm_unidades';
 
+    protected $primaryKey = 'id_unidad';
+
     public function concepto()
     {
         return $this->belongsTo(Concepto::class, 'id_concepto');

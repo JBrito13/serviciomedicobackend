@@ -15,6 +15,8 @@ return new class extends Migration
             $table->integer('id_sintoma', true, true);
             $table->string('descripcion_sintoma', 100);
             $table->string('estado_sintoma', 1)->default('A');
+            $table->integer('id_usuario', false, true)->default(1);
+            $table->foreign('id_usuario')->references('id_usuario')->on('sm_usuarios');
             $table->timestamps();
         });
     }

@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('sm_unidades', function (Blueprint $table) {
             $table->integer('id_unidad', true, true);
             $table->string('descripcion_unidad', 100);
-            $table->string('estado_unidad', 1);
+            $table->string('estado_unidad', 1)->default('A');
+            $table->integer('id_usuario', false, true)->default(1);
+            $table->foreign('id_usuario')->references('id_usuario')->on('sm_usuarios');
             $table->timestamps();
         });
     }

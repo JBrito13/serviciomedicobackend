@@ -16,6 +16,8 @@ return new class extends Migration
             $table->integer('id_concepto', false, true);
             $table->foreign('id_concepto')->references('id_concepto')->on('sm_conceptos')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('cantidad', false, true);
+            $table->integer('id_usuario', false, true)->default(1);
+            $table->foreign('id_usuario')->references('id_usuario')->on('sm_usuarios');
             $table->timestamps();
         });
     }

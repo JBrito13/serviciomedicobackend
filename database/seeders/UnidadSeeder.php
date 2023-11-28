@@ -20,30 +20,35 @@ class UnidadSeeder extends Seeder
                 'estado_unidad' => 'A',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'id_usuario' => '1',
             ),
             array(
                 'descripcion_unidad' => 'FRASCO',
                 'estado_unidad' => 'A',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'id_usuario' => '1',
             ),
             array(
                 'descripcion_unidad' => 'AMPOLLA',
                 'estado_unidad' => 'A',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'id_usuario' => '1',
             ),
             array(
                 'descripcion_unidad' => 'ROLLO',
                 'estado_unidad' => 'A',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'id_usuario' => '1',
             ),
             array(
                 'descripcion_unidad' => 'UNIDAD',
                 'estado_unidad' => 'A',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'id_usuario' => '1',
             ),
         ];
 

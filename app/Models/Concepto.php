@@ -28,5 +28,9 @@ class Concepto extends Model
         return $this->hasOne(Unidad::class, 'id_unidad');
     }
 
+    public function detalle_tratamiento() {
+        return $this->belongsTo(DetalleTratamiento::class, 'id_concepto');
+    }
+
     use HasFactory;
 }

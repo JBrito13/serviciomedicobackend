@@ -15,10 +15,12 @@ return new class extends Migration
             $table->integer('id_concepto', true, true);
             $table->string('codigo_concepto', 10)->unique();
             $table->string('descripcion_concepto', 100);
-            $table->string('estado_concepto', 1);
+            $table->string('estado_concepto', 1)->default('A');;
             $table->integer('id_unidad', false, true);
             $table->foreign('id_unidad')->references('id_unidad')->on('sm_unidades');
             $table->integer('stock_minimo', false, true);
+            $table->integer('id_usuario', false, true)->default(1);
+            $table->foreign('id_usuario')->references('id_usuario')->on('sm_usuarios');
             $table->timestamps();
         });
     }

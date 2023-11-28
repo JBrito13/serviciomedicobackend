@@ -23,6 +23,7 @@ class ConceptoSeeder extends Seeder
                 'stock_minimo' => 10,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'id_usuario' => '1',
             ),
             array(
                 'codigo_concepto' => 'CA17000002',
@@ -32,6 +33,7 @@ class ConceptoSeeder extends Seeder
                 'stock_minimo' => 10,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'id_usuario' => '1',
             ),
             array(
                 'codigo_concepto' => 'CA17000003',
@@ -41,6 +43,7 @@ class ConceptoSeeder extends Seeder
                 'stock_minimo' => 10,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'id_usuario' => '1',
             ),
             array(
                 'codigo_concepto' => 'CA17000004',
@@ -50,6 +53,7 @@ class ConceptoSeeder extends Seeder
                 'stock_minimo' => 10,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'id_usuario' => '1',
             ),
             array(
                 'codigo_concepto' => 'CA17000005',
@@ -59,6 +63,7 @@ class ConceptoSeeder extends Seeder
                 'stock_minimo' => 10,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'id_usuario' => '1',
             ),
             array(
                 'codigo_concepto' => 'CA17000006',
@@ -68,6 +73,7 @@ class ConceptoSeeder extends Seeder
                 'stock_minimo' => 10,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'id_usuario' => '1',
             ),
             array(
                 'codigo_concepto' => 'CA17000007',
@@ -77,6 +83,7 @@ class ConceptoSeeder extends Seeder
                 'stock_minimo' => 10,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'id_usuario' => '1',
             ),
             array(
                 'codigo_concepto' => 'CA17000008',
@@ -86,6 +93,7 @@ class ConceptoSeeder extends Seeder
                 'stock_minimo' => 10,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'id_usuario' => '1',
             ),
         ];
 

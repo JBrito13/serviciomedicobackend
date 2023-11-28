@@ -4,31 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Persona;
 use App\Http\Resources\PersonaCollection;
+use App\Http\Resources\PersonaResource;
 use Illuminate\Http\Request;
 
 class PersonaController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
 
-        $identificacion = $request->input('identificacion');
+        $personas = new PersonaCollection(Persona::all());
+        
+        return response()->json($personas, 200);
 
-        if($identificacion) {
-            $personas = new PersonaCollection(Persona::all()->where('identificacion', $identificacion));
-            $arraykey = array_keys($personas->toArray($request));
+    }
 
-            if($arraykey == null || $arraykey == '') {
-                return response()->json([
-                    'message' => 'Esta persona no está registrada en el sistema.'
-                ], 404);
-            } else {
+    public function show ($identificacion) {
 
-                $personas = $personas[$arraykey[0]];
-                return response()->json($personas, 200);
-            }
+        $persona = new PersonaResource(Persona::where('identificacion', $identificacion)->first());
+
+        if($persona->resource !== null) {
+            return response()->json($persona, 200);
         } else {
-            $personas = new PersonaCollection(Persona::all());
-            return response()->json($personas, 200);
+            return response()->json('Esta persona no está registrada en el sistema.', 404);
         }
 
     }

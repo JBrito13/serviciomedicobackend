@@ -4,25 +4,40 @@ namespace App\Http\Controllers;
 
 use App\Models\Concepto;
 use App\Http\Resources\ConceptoCollection;
+use App\Http\Resources\ConceptoResource;
 use Illuminate\Http\Request;
 
 class ConceptoController extends Controller
 {
     public function index (Request $request) {
 
-        $concepto = $request->input('id_concepto');
+        $activo = $request->input('activo');
 
-        if($concepto){
-            $conceptos = new ConceptoCollection(Concepto::with('unidad')->where('id_concepto', $concepto)->get());
+        if($activo){
 
-            [$conceptos] = $conceptos->toArray($request);
+            $conceptos = new ConceptoCollection(Concepto::where('estado_concepto', 'A')->get()->sortBy('descripcion_concepto'));
 
         } else {
-            $conceptos = new ConceptoCollection(Concepto::all());
+
+            $conceptos = new ConceptoCollection(Concepto::all()->sortBy('codigo_concepto'));
 
         }
 
-        return response()->json($conceptos);
+        return response()->json($conceptos, 200);
+    }
+
+    public function show($id_concepto) {
+
+        $concepto = new ConceptoResource(Concepto::where('id_concepto', $id_concepto)->first());
+
+        if ($concepto->resource !== null) {
+
+            return response()->json($concepto, 200);
+
+        } else {
+            return response()->json('No se encontró el concepto', 404);
+        }
+
     }
 
     public function store(Request $request) {

@@ -11,6 +11,7 @@ use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\ConceptoController;
 use App\Http\Controllers\DiagnosticoController;
 use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\ReportesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -109,3 +110,6 @@ Route::get('/movimientos/{id_movimiento}', [MovimientoController::class, 'show']
 
 // Ruta para insertar un movimiento
 Route::post('/movimientos', [MovimientoController::class, 'store']);
+
+// Ruta para generar el reporte de morbilidad
+Route::get('/morbilidad', [ReportesController::class, 'morbilidad']);

@@ -32,9 +32,7 @@ class ReportesController extends Controller
         $fecha_fin = Carbon::parse($fechaFin)->format('Y-m-d H:i:s');
 
         if($fecha_inicio > $fecha_fin) {
-            return response()->json([
-                'message' => 'La fecha de inicio no puede ser mayor a la fecha de fin.'
-            ], 400);
+            return response()->json('La fecha de inicio no puede ser mayor a la fecha de fin.', 404);
         }
 
         $results = DB::select("

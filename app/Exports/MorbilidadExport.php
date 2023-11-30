@@ -15,11 +15,13 @@ class MorbilidadExport implements FromCollection, WithHeadings
 
     public $fecha_inicio;
     public $fecha_fin;
+    public $tipo_paciente = null;
 
-    public function __construct($fecha_inicio, $fecha_fin)
+    public function __construct($fecha_inicio, $fecha_fin, $tipo_paciente)
     {
         $this->fecha_inicio = $fecha_inicio;
         $this->fecha_fin = $fecha_fin;
+        $this->tipo_paciente = $tipo_paciente;
     }
 
     public function collection()
@@ -37,6 +39,19 @@ class MorbilidadExport implements FromCollection, WithHeadings
             GROUP BY sd.id_diagnostico
             ORDER BY cantidad DESC
         ");
+
+        if($this->tipo_paciente != null) {
+            $results = DB::select("
+                SELECT sd.descripcion_diagnostico, COUNT(st.id_diagnostico) AS cantidad
+                FROM sm_consultas sc, sm_tratamientos st, sm_diagnosticos sd
+                WHERE sc.id_consulta = st.id_consulta
+                AND st.id_diagnostico = sd.id_diagnostico
+                AND sc.fecha_consulta BETWEEN '$fechaInicio' AND '$fechaFin'
+                AND sc.tipo_paciente = '$this->tipo_paciente'
+                GROUP BY sd.id_diagnostico
+                ORDER BY cantidad DESC
+            ");
+        }
 
         return collect($results);
 

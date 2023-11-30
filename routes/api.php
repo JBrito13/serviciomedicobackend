@@ -39,6 +39,9 @@ Route::get('/personas/{identificacion}', [PersonaController::class, 'show']);
 // Ruta para obtener todas las unidades
 Route::apiResource('/unidades', UnidadController::class);
 
+// Ruta para obtener una unidad
+Route::get('/unidades/{id_unidad}', [UnidadController::class, 'show']);
+
 // Ruta para obtener todas los conceptos
 Route::apiResource('/conceptos', ConceptoController::class);
 
@@ -113,3 +116,9 @@ Route::post('/movimientos', [MovimientoController::class, 'store']);
 
 // Ruta para generar el reporte de morbilidad
 Route::get('/morbilidad', [ReportesController::class, 'morbilidad']);
+
+// Ruta para generar el reporte de consultas por paciente
+Route::get('/consultas-por-paciente', [ReportesController::class, 'consultasPorPaciente']);
+
+// Ruta para generar el reporte de movimientos
+Route::get('/movimientos-reporte', [ReportesController::class, 'movimientos']);

@@ -19,26 +19,28 @@ class UsuarioController extends Controller
 
         if ($username) {
 
-            $usuarios = new UsuarioCollection(Usuario::all()->where('username', $username));
+            $usuario = new UsuarioResource(Usuario::all()->where('username', $username)->first());
 
-            $usuarios = $usuarios->first();
-
-            if (!$usuarios) {
+            if ($usuario->resource == null || []) {
                 return response()->json('No se encontró el usuario.', 404);
-            }
+            } else {
+                if ($usuario->estado_usuario == 'I') {
+                    return response()->json('El usuario está inactivo, debe comunicarse con un administrador del sistema.', 404);
+                } else {
+                    if ($password) {
 
-            if ($password) {
+                        if (Hash::check($password, $usuario['password_hash'])) {
 
-                    if (Hash::check($password, $usuarios->password_hash)) {
+                            return response()->json($usuario, 200);
 
-                        return response()->json($usuarios, 200);
-
-                    } else {
-                        return response()->json('Contraseña incorrecta.', 404);
+                        } else {
+                            return response()->json('Contraseña incorrecta.', 404);
+                        }
                     }
+                }
             }
 
-            return response()->json($usuarios, 200);
+            return response()->json($usuario, 200);
 
         }
 
@@ -55,9 +57,7 @@ class UsuarioController extends Controller
         if ($usuario->resource !== null) {
             return response()->json($usuario, 200);
         } else {
-            return response()->json([
-                'message' => 'Ocurrió un error al obtener el usuario.',
-            ], 404);
+            return response()->json('Ocurrió un error al obtener el usuario.', 404);
         }
 
     }
@@ -70,7 +70,14 @@ class UsuarioController extends Controller
         $newUsuario->username = $request->username;
         $newUsuario->password_hash = Hash::make($request->password);
         $newUsuario->estado_usuario = 'A';
-        $newUsuario->id_rol = $request->id_rol;
+        $newUsuario->id_rol = $request->rol['id_rol'];
+
+        // Buscar el username en la base de datos, si existe, retornar un error
+        $usuario = new UsuarioResource(Usuario::all()->where('username', $newUsuario->username)->first());
+
+        if ($usuario->resource !== null) {
+            return response()->json('El nombre de usuario ya existe.', 404);
+        }
 
         $newUsuario->save();
 
@@ -82,15 +89,32 @@ class UsuarioController extends Controller
 
     public function update(Request $request, $id_usuario) {
 
-        $usuario = Usuario::find($id_usuario);
+        $usuario = new UsuarioResource(Usuario::where('id_usuario', $id_usuario)->first());
 
         if ($usuario) {
 
-            $usuario->nombre = $request->nombre;
-            $usuario->username = $request->username;
-            $usuario->password_hash = Hash::make($request->password_hash);
-            $usuario->estado_usuario = $request->estado_usuario;
-            $usuario->id_rol = $request->id_rol;
+            $usuario['nombre'] = $request->nombre;
+            $usuario['username'] = $request->username;
+            $usuario['estado_usuario'] = $request->estado_usuario;
+            $usuario['id_rol'] = $request->rol['id_rol'];
+
+            $usuario->save();
+
+            return response()->json($usuario, 200);
+
+        } else {
+            return response()->json('No se encontró el usuario', 404);
+        }
+
+    }
+
+    public function changePassword (Request $request, $id_usuario) {
+
+        $usuario = new UsuarioResource(Usuario::where('id_usuario', $id_usuario)->first());
+
+        if ($usuario) {
+
+            $usuario['password_hash'] = Hash::make($request->password);
 
             $usuario->save();
 

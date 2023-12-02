@@ -17,12 +17,14 @@ class UsuarioResource extends JsonResource
     public function toArray(Request $request): array
     {
 
+        $rol = new RolResource(Rol::where('id_rol', $this->id_rol)->first());
+
         return [
             'id_usuario' => $this->id_usuario,
             'nombre' => $this->nombre,
             'username' => $this->username,
             'estado_usuario' => $this->estado_usuario,
-            'id_rol' => $this->id_rol,
+            'rol' => $rol,
         ];
     }
 }

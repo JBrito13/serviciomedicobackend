@@ -99,6 +99,9 @@ Route::post('/usuarios', [UsuarioController::class, 'store']);
 // Ruta para actualizar un usuario
 Route::put('/usuarios/{id_usuario}', [UsuarioController::class, 'update']);
 
+// Ruta para actualizar la contraseña de un usuario
+Route::put('/usuarios/{id_usuario}/password', [UsuarioController::class, 'changePassword']);
+
 // Ruta para obtener todos los roles
 Route::apiResource('/roles', RolController::class);
 
